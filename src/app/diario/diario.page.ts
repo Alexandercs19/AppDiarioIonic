@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import {Media, MediaObject } from "@ionic-native/media/ngx";
-import {File} from "@ionic-native/file/ngx";
+import { Media, MediaObject } from "@ionic-native/media/ngx";
+import { File } from "@ionic-native/file/ngx";
+import { PhotoService } from '../services/photo.service';
 
 
 @Component({
@@ -9,10 +9,10 @@ import {File} from "@ionic-native/file/ngx";
   templateUrl: './diario.page.html',
   styleUrls: ['./diario.page.scss'],
 })
-export class DiarioPage{
+export class DiarioPage {
   //Section para el Voice Recorder//
-  status:string="";
-  audiofile:MediaObject = this.media.create(this.file.externalRootDirectory+'/audiofile.mp3');
+  status: string = "";
+  audiofile: MediaObject;
 
   //Section para las tabla//
   Diario = new Array();
@@ -20,10 +20,11 @@ export class DiarioPage{
     titulo: '',
     texto: '',
     fecha: '',
+    Voice: ''
   }
-  visibleUpdate: boolean= true;
+  visibleUpdate: boolean = true;
   visibleEdit: boolean = false;
-  constructor(private media:Media, private file:File) { }
+  constructor(private media: Media, private file: File, public photoService: PhotoService) { }
 
   add(diarios) {
     this.Diario.push(diarios);
@@ -31,6 +32,7 @@ export class DiarioPage{
       titulo: '',
       texto: '',
       fecha: '',
+      Voice: '',
     }
   }
   edit(diarios) {
@@ -38,40 +40,46 @@ export class DiarioPage{
       titulo: diarios.titulo,
       texto: diarios.texto,
       fecha: diarios.fecha,
+      Voice: diarios.Voice,
 
     }
   }
-  update(DiarioEdit){
+  update(DiarioEdit) {
     var i = this.Diario.indexOf(DiarioEdit);
-      this.Diario.splice(i,1);
-      this.Diario.push(DiarioEdit);
-      this.visibleUpdate=true;
-      this.visibleEdit= false;
+    this.Diario.splice(i, 1);
+    this.Diario.push(DiarioEdit);
+    this.visibleUpdate = true;
+    this.visibleEdit = false;
 
   }
 
-  execute(DiarioEdit){
-    this.AddDiario = {titulo: "", texto:"", fecha: "",}
+  execute(DiarioEdit) {
+    this.AddDiario = { titulo: "", texto: "", fecha: "", Voice: "", }
     this.update(DiarioEdit)
   }
   delete(nombredelete) {
 
     var i = this.Diario.indexOf(nombredelete);
-    this.Diario.splice(i , 1);
+    this.Diario.splice(i, 1);
 
   }
 
   //Codigo del Voice Recorder//
-  RecordAudio(){
+  RecordAudio() {
+    this.audiofile = this.media.create(this.file.externalRootDirectory + '/audiofile.mp3')
     this.audiofile.startRecord();
     this.status = "Grabando...";
 
   }
 
-  StopRecording(){
+  StopRecording() {
     this.audiofile.stopRecord();
     this.status = "Grabado"
   }
-
+  
+  //CAMARA CODIGO
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
 
 }
