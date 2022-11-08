@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="warning">
+     <a href=""><ion-icon name="chevron-back-outline" class="icono"></ion-icon></a>
+   <ion-title>Mis Diarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <!-- Seccion de Agregacion de Datos -->
+  <ion-list>
+    <ion-textarea placeholder="Ingrese el titulo" [(ngModel)]="AddDiario.titulo" [clearOnEdit]="true" class="Titulo"
+      style="font-size: large;">
+    </ion-textarea>
+    <ion-textarea placeholder="Ingrese el texto" [(ngModel)]="AddDiario.texto" [clearOnEdit]="true" class="Texto"
+      [autoGrow]="true">
+    </ion-textarea>
+    <ion-item>
+      <ion-label></ion-label>
+      <ion-input placeholder="Ingrese la fecha" [(ngModel)]="AddDiario.fecha" type="date"></ion-input>
+    </ion-item>
+    <ion-button color="success" (click)="add(AddDiario)">Agregar</ion-button>
+  </ion-list>
+  <!-- SECCION DEL LISTADO -->
+  <p>Listado de Diarios</p>
+  <ion-item *ngFor="let item of Diario">
+    <p>Titulo:{{item.titulo}}</p>
+    <p>texto:{{item.texto}}</p>
+    <p>fecha:{{item.fecha}}</p>
+    <!-- <p>Foto: {{item.Foto}}</p>
+    <p>Nota de voz: {{item.video}}</p> -->
+  </ion-item>
+  <!-- <ion-button color="primary" [hidden]="visibleUpdate"(click)="edit(item)">Editar</ion-button> -->
+  <ion-button color="success" [hidden]="visibleUpdate"(click)="execute(AddDiario)">Actualizar</ion-button>
+  <!-- <ion-button color="danger"(click)="delete(item.name)">Borrar</ion-button> -->
+</ion-content>

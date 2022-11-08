@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+*{
+  font-family: 'Roboto', sans-serif;
+
+}
+ion-button{
+
+    position: relative;
+    left: 5%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.IngreseTexto{
+
+    padding: 400px;
+
+}
+
+.icono{
+    height: 35px;
+    width: 35px;
+    position: relative;
+    top: 12px;
+}
+
+ion-title{
+
+    position: relative;
+    left: 35px;
+    bottom: 25px;
+    font-weight: 400;
+    font-size: 25px;
+
+}
+
+a{
+    color: #000;
+}
